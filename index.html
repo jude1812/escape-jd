@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escape jd - Site Officiel Arcade</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="landing-container">
+        
+        <div class="marketing-side">
+            <div class="badge">🔥 ARCADE HIT PRODUIT PAR THE H</div>
+            <h1 class="hero-title">ESCAPE<br><span class="gradient-text">JD</span></h1>
+            <p class="hero-desc">
+                Survivez aux obstacles mouvants dans ce runner rétro ultra-addictif. Maîtrisez vos réflexes, gérez stratégiquement vos 18 essais quotidiens, ou débloquez l'accès premium instantané pour détruire toutes les limites et couper les publicités.
+            </p>
+            
+            <div class="stats-row">
+                <div class="stat-item"><strong>18 VIES</strong><span>Limite standard</span></div>
+                <div class="stat-item"><strong>1.00 €</strong><span>Accès à vie</span></div>
+                <div class="stat-item"><strong>0 ADS</strong><span>En mode Premium</span></div>
+            </div>
+
+            <div class="download-badges">
+                <div class="fake-badge">
+                    <p>Télécharger sur</p>
+                    <strong>App Store</strong>
+                </div>
+                <div class="fake-badge">
+                    <p>Disponible sur</p>
+                    <strong>Google Play</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-side">
+            <div class="smartphone-mockup">
+                <div class="phone-speaker"></div>
+                <div class="phone-button"></div>
+                
+                <div id="game-container">
+                    <canvas id="gameCanvas" width="360" height="540"></canvas>
+                    
+                    <div id="game-ui">
+                        <div id="score-board">0</div>
+                        <div id="lives-board">❤️ <span id="lives-count">18</span>/18</div>
+                    </div>
+
+                    <div id="menu-overlay" class="active">
+                        <h1 id="menu-title">ESCAPE JD</h1>
+                        <p id="menu-subtitle">Cliquez ou pressez [Espace]</p>
+                        
+                        <button id="start-btn">START</button>
+                        
+                        <div id="monetization-zone">
+                            
+                            <div id="lock-zone" class="hidden">
+                                <p id="timer-text">Essais épuisés ! Recharge dans : <span id="countdown">10:00</span></p>
+                                <button id="watch-2-ads-btn" class="biz-btn ad-btn">🎬 REGARDER 2 PUBS (RESET RAPIDE)</button>
+                            </div>
+
+                            <button id="premium-btn" class="biz-btn">PASSER PREMIUM (1.00€)</button>
+                            <button id="revive-btn" class="biz-btn hidden">🎬 REGARDER UNE PUB - RESPAWN</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+/* --- CONFIGURATION ET RESET GENERAUX --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+body {
+    background-color: #0b0e17;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    overflow-x: hidden;
+}
+
+/* Layout en colonnes responsives */
+#landing-container {
+    display: flex;
+    max-width: 1150px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+/* --- ZONE COMMERCIALE & MARKETING (GAUCHE) --- */
+.marketing-side {
+    flex: 1.2;
+    max-width: 550px;
+}
+
+.badge {
+    background: rgba(255, 71, 87, 0.1);
+    color: #ff4757;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    display: inline-block;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 71, 87, 0.2);
+}
+
+.hero-title {
+    font-size: 72px;
+    line-height: 1.05;
+    font-weight: 900;
+    margin-bottom: 25px;
+    letter-spacing: -2px;
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, #ff4757, #ff6b81);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-desc {
+    color: #a4b0be;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 35px;
+}
+
+.stats-row {
+    display: flex;
+    gap: 35px;
+    margin-bottom: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 25px;
+}
+
+.stat-item strong {
+    display: block;
+    font-size: 26px;
+    color: #ffffff;
+    font-weight: 800;
+}
+
+.stat-item span {
+    font-size: 12px;
+    color: #747d8c;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.download-badges {
+    display: flex;
+    gap: 15px;
+}
+
+.fake-badge {
+    background: #1e222e;
+    border: 1px solid #2f3542;
+    padding: 10px 22px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.fake-badge:hover {
+    background: #2f3542;
+}
+
+.fake-badge p {
+    font-size: 10px;
+    color: #747d8c;
+}
+
+.fake-badge strong {
+    display: block;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+/* --- MOCKUP SMARTPHONE HAUT DE GAMME (DROITE) --- */
+.game-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.smartphone-mockup {
+    background: #151821;
+    padding: 13px;
+    border-radius: 50px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.8), 0 0 0 4px #2f3542;
+    position: relative;
+}
+
+.phone-speaker {
+    width: 65px;
+    height: 5px;
+    background: #2f3542;
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 3px;
+}
+
+/* Container écran du smartphone */
+#game-container {
+    position: relative;
+    width: 360px;
+    height: 540px;
+    border-radius: 40px;
+    overflow: hidden;
+    background: #000;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* --- COMPOSANTS HUD INTERNES AU JEU --- */
+#game-ui {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 25px;
+    align-items: center;
+    z-index: 10;
+}
+
+#score-board {
+    color: #ffffff;
+    font-size: 42px;
+    font-weight: 900;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+#lives-board {
+    background: rgba(11, 14, 23, 0.85);
+    backdrop-filter: blur(4px);
+    padding: 6px 14px;
+    border-radius: 30px;
+    color: #ff4757;
+    font-weight: 800;
+    font-size: 13px;
+    border: 1px solid rgba(255, 71, 87, 0.3);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+/* --- OVERLAY DE CONFIGURATION DES MENUS --- */
+#menu-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 14, 23, 0.4);
+    backdrop-filter: blur(2px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 65px 25px 35px 25px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 20;
+}
+
+#menu-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#menu-title {
+    color: #ffffff;
+    font-size: 34px;
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: 1px;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+}
+
+#menu-subtitle {
+    color: #a4b0be;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: -30px;
+    text-shadow: 0 2px 4px #000;
+}
+
+/* Bouton Rétro/Moderne START */
+#start-btn {
+    background: #ff4757;
+    border: none;
+    color: #ffffff;
+    padding: 14px 45px;
+    font-size: 20px;
+    font-weight: 800;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+    transition: transform 0.1s, background 0.2s;
+}
+
+#start-btn:hover { background: #ff6b81; }
+#start-btn:active { transform: scale(0.96); }
+
+/* SYSTEME ECONOMIQUE ET HORAIRE DE VERROUILLAGE */
+#monetization-zone {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+#lock-zone {
+    background: rgba(255, 71, 87, 0.15);
+    border: 1px solid rgba(255, 71, 87, 0.4);
+    padding: 12px;
+    border-radius: 14px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+#lock-zone p {
+    font-size: 12px;
+    color: #ff4757;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.biz-btn {
+    width: 100%;
+    border: none;
+    color: #ffffff;
+    padding: 11px;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.biz-btn:active { transform: scale(0.98); }
+
+#premium-btn {
+    background: linear-gradient(45deg, #2ed573, #26af5f);
+    box-shadow: 0 4px 15px rgba(46, 213, 115, 0.25);
+}
+
+#revive-btn {
+    background: #1e90ff;
+    box-shadow: 0 4px 15px rgba(30, 144, 255, 0.25);
+}
+
+.ad-btn {
+    background: #ffa502;
+    color: #000000;
+    font-weight: 800;
+}
+
+.hidden { display: none !important; }
+
+/* RE-LAYOUT INTELLIGENT POUR SMARTPHONES */
+@media (max-width: 950px) {
+    #landing-container {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 40px;
+    }
+    .stats-row, .download-badges {
+        justify-content: center;
+    }
+}
