@@ -239,13 +239,30 @@ function rechargeFullLives() {
 
 // --- CONSOMMATION DU CLIP DE 2 PUBS (EVITEMENT DU TIMER) ---
 watch2AdsBtn.addEventListener("click", () => {
-    adsWatchedCounter++;
-    if (adsWatchedCounter === 1) {
-        alert("🎬 [PUBLICITÉ 1 / 2]\nVidéo promotionnelle lue avec succès.\n\nRegardez une seconde vidéo pour réinitialiser vos 18 essais.");
-    } else if (adsWatchedCounter >= 2) {
-        alert("🎬 [PUBLICITÉ 2 / 2]\nSeconde vidéo validée !\n\nVos 18 essais ont été rechargés immédiatement sans attente.");
-        adsWatchedCounter = 0;
-        rechargeFullLives();
+    if (typeof adBreak === 'function') {
+        adBreak({
+            type: 'reward',
+            name: 'unlock-lives',
+            beforeAd: () => { console.log("Lancement de la pub AdSense"); },
+            afterAd: () => { console.log("Fin de la pub"); },
+            adViewed: () => {
+                adsWatchedCounter++;
+                if (adsWatchedCounter >= 2) {
+                    alert("🎬 Deuxième vidéo validée ! Vos 18 essais sont rechargés.");
+                    adsWatchedCounter = 0;
+                    rechargeFullLives();
+                } else {
+                    alert("🎬 Première vidéo terminée. Encore une !");
+                }
+            }
+        });
+    } else {
+        // Mode de secours si AdSense est en cours de validation par Google
+        adsWatchedCounter++;
+        if (adsWatchedCounter >= 2) {
+            rechargeFullLives();
+            adsWatchedCounter = 0;
+        }
     }
 });
 
