@@ -239,25 +239,40 @@ function rechargeFullLives() {
 
 // --- CONSOMMATION DU CLIP DE 2 PUBS (EVITEMENT DU TIMER) ---
 watch2AdsBtn.addEventListener("click", () => {
-    if (typeof adBreak === 'function') {
-        adBreak({
-            type: 'reward',
-            name: 'unlock-lives',
-            beforeAd: () => { console.log("Lancement de la pub AdSense"); },
-            afterAd: () => { console.log("Fin de la pub"); },
-            adViewed: () => {
+    // Vérification que le SDK de CrazyGames est bien chargé en ligne
+    if (window.CrazyGames && window.CrazyGames.SDK) {
+        const cgsdk = window.CrazyGames.SDK;
+
+        // On demande une publicité de type "récompense" (rewarded)
+        cgsdk.ad.requestAd("rewarded", {
+            adStarted: () => {
+                // La pub commence : on coupe le jeu par sécurité
+                gameRunning = false;
+                console.log("Publicité CrazyGames en cours...");
+            },
+            adFinished: () => {
+                // Le joueur a regardé TOUTE la pub
                 adsWatchedCounter++;
                 if (adsWatchedCounter >= 2) {
-                    alert("🎬 Deuxième vidéo validée ! Vos 18 essais sont rechargés.");
+                    alert("🎬 Deuxième vidéo CrazyGames validée ! Vos 18 essais sont rechargés.");
                     adsWatchedCounter = 0;
                     rechargeFullLives();
                 } else {
-                    alert("🎬 Première vidéo terminée. Encore une !");
+                    alert("🎬 Première vidéo terminée. Regardez la deuxième pour débloquer les vies !");
+                }
+            },
+            adError: (error) => {
+                console.log("Erreur d'affichage de la pub :", error);
+                // Mode de secours si CrazyGames n'a pas de pub en stock
+                adsWatchedCounter++;
+                if (adsWatchedCounter >= 2) {
+                    rechargeFullLives();
+                    adsWatchedCounter = 0;
                 }
             }
         });
     } else {
-        // Mode de secours si AdSense est en cours de validation par Google
+        // Fallback local si tu testes le jeu sur ton PC sans connexion internet
         adsWatchedCounter++;
         if (adsWatchedCounter >= 2) {
             rechargeFullLives();
